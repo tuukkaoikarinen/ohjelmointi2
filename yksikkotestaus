@@ -1,0 +1,40 @@
+//Jaan tehtävän nyt tällä tavalla, olen vielä hieman kokematon githubin ja myös java-projektien jakamisen kanssa, mutta toivottavasti oppisin lisää tällä kurssilla.
+
+package dayOfYear;
+
+public class DayOfYear {
+
+	/** month parameter = month of the year, January = 1 and December 12 */
+    public static int dayOfYear(int month, int dayOfMonth, int year) {
+    	int[] monthLenghts = new int[] {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31}; // days in the month, in order from January to December. Should be refactored to not include "Magic Numbers" but I could not figure out how 
+    	for (int m = 1; m < month; ++m) { // loop that goes through monthLenghts array to the point current month is reached
+    		dayOfMonth += monthLenghts[m];
+    	}
+    	if ((year % 4 != 0) || ((year % 4 == 0) && month == 1)) { // checks that year != leap year or that if it's leap year, then checks that it is January
+        	return dayOfMonth;
+        }
+        else {
+        	return dayOfMonth + 1; // adds one if leap year and month is February or later
+        }  
+    	
+    	// kaytetty lahteenä for-loopin ja monthLenghts-arrayn muodostamisessa: https://web.mit.edu/6.005/www/fa16/classes/04-code-review/
+    }
+}
+
+
+//Testi-luokka tässä alla
+
+package dayOfYear;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.Test;
+
+class DayOfYearTest {
+
+	@Test
+	public void testDayOfYear() {
+		int day = DayOfYear.dayOfYear(3, 1, 2020);
+		assertEquals(61, day);
+	}
+}
